@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Өлкетану музейі</title>
+<title>Тарихи-өлкетану мұражайы</title>
 <style>
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
 *,*::before,*::after{box-sizing:border-box}
@@ -116,7 +116,8 @@ img { max-width: 100%; }
   background: none; border: 0; padding: 0; cursor: pointer; text-align: left;
 }
 .brand svg { width: 30px; height: 30px; color: var(--brass); flex: none; }
-.brand b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 21px; line-height: 1.1; letter-spacing: .03em; white-space: nowrap; }
+.brand > span { min-width: 0; }
+.brand b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 21px; line-height: 1.1; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand small { display: block; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
 .top-hall { flex: 1; min-width: 0; text-align: center; font-size: 13px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; transition: opacity .4s; }
 .app[data-screen="museum"] .top-hall { opacity: 1; }
@@ -155,7 +156,7 @@ img { max-width: 100%; }
 .eyebrow { margin: 0 0 14px; font-size: 11.5px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--brass); }
 .intro h1 {
   margin: 0; font-family: var(--font-display); font-weight: 400;
-  font-size: clamp(44px, 5.6vw, 82px); line-height: .94; letter-spacing: .005em; text-wrap: balance;
+  font-size: clamp(38px, 4.3vw, 64px); line-height: .98; letter-spacing: .005em; text-wrap: balance;
 }
 .intro .lead { margin: 18px 0 0; font-size: clamp(15px, 1.25vw, 18px); color: var(--ink-2); max-width: 34ch; text-wrap: balance; }
 .intro .note { margin: 14px 0 0; font-size: 14px; color: var(--ink-2); max-width: 40ch; }
@@ -201,6 +202,8 @@ img { max-width: 100%; }
 .doorway .inside {
   position: absolute; inset: 16px 22px 0;
   background:
+    radial-gradient(ellipse 70% 55% at 50% 62%, rgba(255, 246, 222, .38) 0%, rgba(244, 207, 134, .3) 34%, rgba(163, 106, 40, .55) 78%, rgba(76, 46, 18, .92) 100%),
+    var(--inside-img, none) center / cover no-repeat,
     radial-gradient(ellipse 70% 55% at 50% 62%, #FFF6DE 0%, #F4CF86 34%, #A36A28 78%, #4C2E12 100%);
 }
 .doorway .inside::after {
@@ -689,8 +692,11 @@ img { max-width: 100%; }
 }
 @media (max-width: 760px), (max-width: 1100px) and (max-aspect-ratio: 20/23) {
   body { font-size: 14.5px; }
-  .brand b { font-size: 18px; }
+  .brand b { font-size: 16px; }
   .brand small, .tbtn .lbl, .top-hall { display: none; }
+  .app:not([data-screen="entrance"]) .brand > span { display: none; }
+  .passport { padding: 14px 14px 12px; }
+  .pass-text { font-size: 14.5px; }
   .tbtn { padding: 0 9px; }
   .progress-pill .bar { display: none; }
   .entrance { place-items: start center; }
@@ -698,7 +704,9 @@ img { max-width: 100%; }
   .intro { text-align: center; }
   .intro .lead, .intro .note { margin-inline: auto; }
   .cta-row { justify-content: center; }
-  .portal { --pw: min(44vw, 186px); order: -1; }
+  .portal { --pw: min(36vw, 150px); order: -1; }
+  .portal-sign { margin-bottom: 10px; font-size: 13px; padding: 5px 8px 5px 13px; }
+  .entrance-grid { gap: 22px; }
   .portal::before, .portal::after { top: 44%; }
   .museum { perspective: none; }
   .hall { overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
@@ -741,6 +749,46 @@ img { max-width: 100%; }
 .wall.peds.narrow .plinth .plaque { padding: 6px 20px 7px 8px; width: calc(var(--pw, 150px) - 14px); }
 .wall.peds.narrow .plinth .plaque .t { font-size: 11.5px; }
 .wall.peds.narrow .plinth .plaque .m { display: none; }
+
+/* ---------- museum passport (main page) ---------- */
+.named { margin: 10px 0 0; font-size: clamp(15px, 1.3vw, 19px); font-weight: 600; color: var(--brass); letter-spacing: .01em; }
+.passport {
+  position: relative; margin-top: 22px; max-width: 470px; padding: 16px 18px 14px;
+  background: color-mix(in srgb, var(--plaque) 88%, transparent); color: var(--plaque-ink);
+  border: 1px solid color-mix(in srgb, var(--brass) 55%, transparent);
+  box-shadow: 0 22px 44px -28px var(--shade);
+}
+.passport::before { content: ""; position: absolute; inset: 4px; border: 1px solid color-mix(in srgb, var(--brass) 24%, transparent); pointer-events: none; }
+.pass-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.pass-head h2 { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--brass); }
+.pass-head .seal { width: 26px; height: 26px; color: var(--brass); flex: none; }
+.pass-text { margin: 12px 0 14px; font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+.intro-audio { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 13px; padding-top: 13px; border-top: 1px solid var(--line); }
+.ia-btn {
+  position: relative; width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; background: var(--brass); color: var(--plaque);
+  box-shadow: 0 6px 14px -6px var(--shade); transition: transform .2s;
+}
+.ia-btn:hover { transform: scale(1.06); }
+.ia-btn .ico { width: 20px; height: 20px; stroke-width: 2; }
+.ia-btn::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--brass); opacity: 0; animation: iaPulse 2.4s ease-out infinite; pointer-events: none; }
+.intro-audio.playing .ia-btn::after { animation: none; opacity: 0; }
+@keyframes iaPulse { 0% { transform: scale(.88); opacity: .6; } 100% { transform: scale(1.3); opacity: 0; } }
+.ia-body { min-width: 0; }
+.ia-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 14.5px; }
+.ia-time { flex: none; font-size: 12.5px; color: var(--plaque-ink-2); font-variant-numeric: tabular-nums; }
+.ia-sub { display: block; margin-top: 2px; font-size: 12.5px; color: var(--plaque-ink-2); }
+.ia-bar { display: block; position: relative; height: 3px; margin-top: 9px; background: var(--line); overflow: hidden; }
+.ia-bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--brass); transition: width .25s linear; }
+
+/* now-playing chip in the top bar (intro or hall narration) */
+.np { gap: 8px; border-color: color-mix(in srgb, var(--brass) 65%, transparent); }
+.np .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.np .eq i { display: block; width: 3px; height: 6px; background: var(--brass); animation: eqBar 1s ease-in-out infinite; }
+.np .eq i:nth-child(2) { animation-delay: .25s; }
+.np .eq i:nth-child(3) { animation-delay: .5s; }
+.np .ico { width: 16px; height: 16px; }
+@keyframes eqBar { 0%, 100% { height: 4px; } 50% { height: 14px; } }
 </style>
 </head>
 <body>
@@ -770,10 +818,11 @@ img { max-width: 100%; }
   <header class="topbar">
     <button class="brand" id="brand" type="button" aria-label="Кіреберіске оралу">
       <svg aria-hidden="true"><use href="#i-shanyrak"/></svg>
-      <span><b id="brand-name">Өлкетану музейі</b><small id="brand-tag">Виртуалды экспозиция</small></span>
+      <span><b id="brand-name">Тарихи-өлкетану мұражайы</b><small id="brand-tag">Әбітхан Әбдіғаппар атындағы</small></span>
     </button>
     <p class="top-hall" id="top-hall" aria-live="polite"></p>
     <div class="top-actions">
+      <button class="tbtn np" id="np" type="button" hidden><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="lbl" id="np-label">Аудиогид</span><svg class="ico" aria-hidden="true"><use href="#i-pause"/></svg></button>
       <span class="progress-pill" id="progress" title="Көрілген жәдігерлер"><span class="bar"><i id="progress-bar"></i></span><span id="progress-text">0 / 0</span></span>
       <button class="tbtn" id="btn-map" type="button" aria-label="Музей картасы"><svg class="ico" aria-hidden="true"><use href="#i-map"/></svg><span class="lbl">Музей картасы</span></button>
       <button class="tbtn" id="btn-theme" type="button"><svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg><span class="lbl">Түнгі режим</span></button>
@@ -785,9 +834,23 @@ img { max-width: 100%; }
     <div class="entrance-grid">
       <div class="intro">
         <p class="eyebrow" id="ent-tag">Виртуалды экспозиция</p>
-        <h1 id="ent-title">Өлкетану музейі</h1>
-        <p class="lead" id="ent-lead"></p>
-        <p class="note" id="ent-note"></p>
+        <h1 id="ent-title">Тарихи-өлкетану мұражайы</h1>
+        <p class="named" id="ent-named">Әбітхан Әбдіғаппар атындағы</p>
+        <section class="passport" aria-labelledby="pass-title">
+          <header class="pass-head">
+            <h2 id="pass-title">Музей төлқұжаты</h2>
+            <svg class="seal" aria-hidden="true"><use href="#i-shanyrak"/></svg>
+          </header>
+          <p class="pass-text" id="pass-text"></p>
+          <div class="intro-audio" id="intro-audio">
+            <button class="ia-btn" id="ia-btn" type="button" aria-label="Кіріспе аудиогидті тыңдау"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg></button>
+            <div class="ia-body">
+              <div class="ia-top"><b id="ia-title"></b><span class="ia-time" id="ia-time"></span></div>
+              <span class="ia-sub" id="ia-sub"></span>
+              <span class="ia-bar" aria-hidden="true"><i id="ia-bar"></i></span>
+            </div>
+          </div>
+        </section>
         <div class="cta-row">
           <button class="btn-enter" id="btn-enter" type="button">Музейге кіру <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
           <span class="meta-count" id="ent-count"></span>
@@ -882,11 +945,15 @@ img { max-width: 100%; }
 /* Музей мазмұны. Барлық мәтін — қазақ тілінде.
    audio: кейін жазылған дауыс файлының жолы, мысалы 'audio/b5-obv.mp3' */
 const MUSEUM = {
-  name: 'Өлкетану музейі',
+  name: 'Тарихи-өлкетану мұражайы',
+  namedAfter: 'Әбітхан Әбдіғаппар атындағы',
+  passport: 'Ақниет ауылындағы Ұлықбек атындағы №29 жалпы орта мектептің тарихи-өлкетану мұражайы Әбітхан Әбдіғаппардың атымен аталады.',
   tagline: 'Виртуалды экспозиция',
   lead: 'Тарихи жәдігерлер, нумизматика, құжаттар, этнография және фотошежіре',
   welcome: 'Залдарды аралап, әр жәдігерді ашып қараңыз: суретін үлкейтуге, сипаттамасын оқуға болады.',
-  source: 'Дереккөз: «Музей жәдігерлерінің толық каталогы»'
+  source: 'Дереккөз: «Музей жәдігерлерінің толық каталогы»',
+  /* 0-ші кіріспе аудиогид: музейге кірген сәтте ойнайды, бас беттегі батырмамен де қосылады */
+  intro: { audio: 'audio/kirispe.mp3', title: 'Кіріспе аудиогид', sub: 'Мұражайдың аты мен құрылуы туралы', dur: '0:41' }
 };
 
 /* Залдар экскурсия ретімен; acc — залдың түс белгісі.
@@ -916,7 +983,7 @@ const HALLS = [
         short: 'Күйдірілген саз',
         facts: [['Материалы', 'Күйдірілген саз (керамика)'], ['Түрі', 'Сұйықтық не астық сақтайтын ыдыс']],
         text: 'Көне дәуірден сақталған, астыңғы жағы мен ернеуі сақталған, сұйықтық немесе астық сақтауға арналған біртұтқалы саз ыдыс.',
-        audio: null },
+        audio: 'audio/koze.mp3' },
       { id: 'eth-keli', dim: [960, 1280, 540, 720], cut: [384, 1100, 210, 600], obj: { k: 2.75, p: 0.16 },
         title: 'Ағаш келі мен келсап',
         short: 'Біртұтас ағаш діңі',
@@ -938,12 +1005,12 @@ const HALLS = [
     intro: '«Ақ алтын» өсірген еңбек адамдары: ұжымшар мүшелері, мақта терімшілері мен ауыл ақсақалдарының мұрағаттық фотосуреттері.',
     audio: null,
     items: [
-      { id: 'ph-banner', dim: [341, 255],
+      { id: 'ph-banner', dim: [1280, 960, 720, 540],
         title: 'Ту тапсыру салтанаты',
         short: 'Ауыл еңбеккерлерінің жиыны',
         facts: [['Тақырыбы', 'Ауыл еңбеккерлерінің жиыны'], ['Түрі', 'Мұрағаттық фотосурет']],
         text: 'Ауыл еңбеккерлері жиналған алаңда туды салтанатты түрде тапсыру сәті. Кеңес дәуірінде ауыспалы Қызыл ту социалистік жарыста озған бригадалар мен ұжымдарға табысталатын.',
-        audio: null },
+        audio: 'audio/tu.mp3' },
       { id: 'ph-cotton', dim: [1280, 960, 720, 540],
         title: 'Мақта жинаушылар бригадасы',
         short: 'Ауыл шаруашылығы және диқаншылық',
@@ -994,7 +1061,7 @@ const HALLS = [
         short: 'Ауыл мектебі',
         facts: [['Түрі', 'Мұрағаттық фотосурет']],
         text: 'Мектеп ғимараты мен мүсін алдында түскен пионерлер, оқушылар және ардагер ұстаз.',
-        audio: null },
+        audio: 'audio/mektep.mp3' },
       { id: 'ph-pupils', dim: [1280, 960, 720, 540],
         title: 'Бастауыш сынып оқушылары',
         short: 'Мектеп мұрағаты',
@@ -1054,25 +1121,25 @@ const HALLS = [
         short: '1909 ж. үлгісі · Артқы беті',
         facts: [['Мемлекет', 'Ресей империясы'], ['Беті', 'Реверс (артқы беті)'], ['Елтаңба', 'Империялық қос басты бүркіт'], ['Заңдық ескерту', 'Банкнотты қолдан жасау заңмен қудаланатыны жазылған өрнекті мәтін']],
         text: 'Билеттің артқы бетінің ортасында тәж киген қос басты бүркіт — Ресей империясының елтаңбасы бейнеленген. Төменгі жақтағы өрнекті жақтауда несие билеттерін қолдан жасаудың заңмен қудаланатыны туралы ескерту жазылған.',
-        audio: 'audio/banknot.mp3' },
+        audio: 'audio/rubl5.mp3' },
       { id: 'b5-obv', dim: [960, 1280, 540, 720], pair: 'b5-rev',
         title: '5 рубльдік мемлекеттік несие билеті', side: 'Аверс',
         short: '1909 ж. · Сериясы ИП 604626',
         facts: [['Жылы', '1909 ж. (үлгісі)'], ['Мемлекет', 'Ресей империясы'], ['Беті', 'Аверс (алдыңғы беті)'], ['Сериясы', 'ИП 604626']],
         text: 'Басқарушы мен кассир қолдары қойылған, алтынмен қамтамасыз етілген қағаз банкнот. Бетіндегі жазуда Мемлекеттік банктің несие билеттерін алтын тиынға сомасын шектемей айырбастайтыны көрсетілген: 1 рубль империалдың 1/15 бөлігіне тең.',
-        audio: 'audio/banknot.mp3' },
+        audio: 'audio/rubl5.mp3' },
       { id: 'b10-obv', dim: [323, 434], pair: 'b10-rev',
         title: '10 рубльдік мемлекеттік несие билеті', side: 'Аверс',
         short: '1909 ж. · Сериясы ГЦ 555842',
         facts: [['Жылы', '1909 ж. (үлгісі)'], ['Мемлекет', 'Ресей империясы'], ['Беті', 'Аверс (алдыңғы беті)'], ['Сериясы', 'ГЦ 555842']],
         text: 'Билеттің алдыңғы беті өрнекті жақтаумен әшекейленген: жоғарғы жағында Ресей империясының елтаңбасы, екі шетінде «10» саны жазылған дөңгелек медальондар орналасқан. Төменгі жағында үлгі жылы — 1909 көрсетілген.',
-        audio: 'audio/banknot.mp3' },
+        audio: 'audio/rubl10.mp3' },
       { id: 'b10-rev', dim: [960, 1280, 540, 720], pair: 'b10-obv',
         title: '10 рубльдік мемлекеттік несие билеті', side: 'Реверс',
         short: 'XX ғ. басы · Артқы беті',
         facts: [['Кезеңі', 'XX ғасырдың басы'], ['Мемлекет', 'Ресей империясы'], ['Беті', 'Реверс (артқы беті)']],
         text: 'Өрнекті жақтаумен әшекейленген, алтын монетаға айырбасталатын тарихи қағаз ақша жәдігері. Ортадағы өрнекті алаңда несие билеттерінің мемлекеттің бүкіл мүлкімен қамтамасыз етілетіні және оларды қолдан жасағандардың жазаланатыны туралы ережелер жазылған.',
-        audio: 'audio/banknot.mp3' }
+        audio: 'audio/rubl10.mp3' }
     ]
   },
   {
@@ -1128,6 +1195,8 @@ const HALLS = [
 
 /* Викторина: answer — дұрыс жауаптың индексі */
 const QUIZ = [
+  { q: 'Ақниет ауылындағы тарихи-өлкетану мұражайы кімнің атымен аталады?',
+    options: ['Әбітхан Әбдіғаппардың', 'Ұлықбектің', 'Абай Құнанбайұлының', 'Шоқан Уәлихановтың'], answer: 0 },
   { q: 'Залдағы 5 және 10 рубльдік несие билеттері қай жылғы үлгіде шығарылған?',
     options: ['1909 жылғы', '1897 жылғы', '1924 жылғы', '1961 жылғы'], answer: 0 },
   { q: 'Бонистика нені зерттейді?',
@@ -1224,9 +1293,20 @@ const QUIZ = [
   const root = document.documentElement;
 
   /* ---------- static text ---------- */
-  $('#ent-lead').textContent = MUSEUM.lead;
-  $('#ent-note').textContent = MUSEUM.welcome;
-  $('#ent-count').textContent = `${N} зал · ${TOTAL} жәдігер`;
+  $('#ent-title').textContent = MUSEUM.name;
+  $('#ent-named').textContent = MUSEUM.namedAfter;
+  $('#brand-name').textContent = MUSEUM.name;
+  $('#brand-tag').textContent = MUSEUM.namedAfter;
+  $('#pass-text').textContent = MUSEUM.passport;
+  const AUDIO_COUNT = new Set([...ALL.map((i) => i.audio), ...HALLS.map((h) => h.audio), MUSEUM.intro && MUSEUM.intro.audio].filter(Boolean)).size;
+  $('#ent-count').textContent = `${N} зал · ${TOTAL} жәдігер · ${AUDIO_COUNT} аудиожазба`;
+  if (MUSEUM.intro) {
+    $('#ia-title').textContent = MUSEUM.intro.title;
+    $('#ia-sub').textContent = MUSEUM.intro.sub;
+    $('#ia-time').textContent = MUSEUM.intro.dur || '';
+  } else $('#intro-audio').hidden = true;
+  // the real museum hall is what you see when the doors open
+  $('.doorway .inside').style.setProperty('--inside-img', `url("${asset('img/mus-hall-s.webp')}")`);
   $('#ent-source').textContent = MUSEUM.source;
   $('#directory-list').innerHTML = HALLS.map((h, hi) => `
     <li><button type="button" data-hall="${hi}" style="--hall-acc: var(--acc-${h.acc})">
@@ -1548,6 +1628,7 @@ const QUIZ = [
     museum.hidden = name !== 'museum';
     finale.hidden = name !== 'finale';
     updateChrome();
+    paintPlayer();
   }
 
   function markHash() {
@@ -1556,7 +1637,8 @@ const QUIZ = [
 
   function showHall(target, dir) {
     if (target < 0 || target >= N) return;
-    if (state.screen !== 'museum' || target !== state.hall) stopAudio();
+    // the intro narration may keep going while the visitor walks on; a hall's own narration stops when leaving it
+    if ((state.screen !== 'museum' || target !== state.hall) && audioOwner !== 'intro') stopAudio();
     if (state.screen !== 'museum') {
       setScreen('museum');
       hallEls.forEach((s) => s.classList.remove('is-current', 'lit', 'in-r', 'in-l', 'out-l', 'out-r', 'fade-in'));
@@ -1612,8 +1694,15 @@ const QUIZ = [
 
   /* ---------- entrance ---------- */
   let opening = false;
+  let introStarted = false;
+  function startIntro() {
+    if (!MUSEUM.intro) return;
+    introStarted = true;
+    playAudio(MUSEUM.intro.audio, 'intro');
+  }
   async function enterMuseum(target = 0) {
     if (opening) return;
+    if (!introStarted) startIntro();
     if (state.screen !== 'entrance') { showHall(target); return; }
     opening = true;
     entrance.classList.add('is-opening');
@@ -1624,7 +1713,8 @@ const QUIZ = [
     showHint();
   }
   function showEntrance() {
-    closeModal(true); closeMap(); stopAudio();
+    closeModal(true); closeMap();
+    if (audioOwner !== 'intro') stopAudio();
     hallEls.forEach((s) => s.classList.remove('lit'));
     setScreen('entrance');
     markHash();
@@ -1690,6 +1780,24 @@ const QUIZ = [
       const on = playing && audioOwner === b;
       b.querySelector('span').textContent = on ? 'Тоқтату' : 'Зал туралы тыңдау';
     });
+    if (MUSEUM.intro) {
+      const introOn = audioOwner === 'intro';
+      $('#intro-audio').classList.toggle('playing', introOn && playing);
+      $('#ia-btn use').setAttribute('href', introOn && playing ? '#i-pause' : '#i-play');
+      $('#ia-btn').setAttribute('aria-label', introOn && playing ? 'Кіріспе аудиогидті кідірту' : 'Кіріспе аудиогидті тыңдау');
+      if (introOn && audio.duration) {
+        $('#ia-time').textContent = `${fmt(audio.currentTime)} / ${fmt(audio.duration)}`;
+        $('#ia-bar').style.width = `${Math.min(100, (audio.currentTime / audio.duration) * 100)}%`;
+      }
+    }
+    const np = $('#np');
+    const showNp = playing && !!audioOwner && audioOwner !== 'exhibit' && modal.hidden && state.screen !== 'entrance';
+    np.hidden = !showNp;
+    if (showNp) {
+      $('#np-label').textContent = audioOwner === 'intro' ? 'Кіріспе аудиогид' : 'Зал туралы';
+      np.setAttribute('aria-label', 'Аудиогидті тоқтату');
+      np.title = 'Аудиогидті тоқтату';
+    }
   }
   ['play', 'pause', 'ended', 'timeupdate', 'loadedmetadata'].forEach((ev) => audio.addEventListener(ev, paintPlayer));
   pBtn.addEventListener('click', () => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); });
@@ -1706,6 +1814,14 @@ const QUIZ = [
     if (p && p.catch) p.catch(() => paintPlayer());
   }
   function stopAudio() { audio.pause(); audioOwner = null; paintPlayer(); }
+  $('#np').addEventListener('click', stopAudio);
+  $('#ia-btn').addEventListener('click', () => {
+    if (audioOwner === 'intro' && !audio.ended) {
+      if (audio.paused) audio.play().catch(() => {}); else audio.pause();
+      return;
+    }
+    startIntro();
+  });
   function toggleHallAudio(btn) {
     if (audioOwner === btn && !audio.paused) return stopAudio();
     playAudio(btn.dataset.audio, btn);
@@ -1904,6 +2020,7 @@ const QUIZ = [
     state.modal = { id, mode: it.cut ? 'cut' : 'photo' };
     if (!wasOpen) lastFocus = document.activeElement;
     modal.hidden = false;
+    paintPlayer();
     fillPanel(it);
     if (it.audio) playAudio(it.audio, 'exhibit'); else if (audioOwner === 'exhibit') stopAudio();
     requestAnimationFrame(() => {
@@ -1920,6 +2037,7 @@ const QUIZ = [
     const finish = () => {
       modal.hidden = true;
       state.modal = null;
+      paintPlayer();
       stageImg.removeAttribute('src');
       if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
     };
